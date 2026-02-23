@@ -1,0 +1,116 @@
+# Rule all
+rule all:
+    input:
+        "../PipelineReport.txt",
+        "../Outputs/cds_count.txt",
+        "../Outputs/hcmv.idx",
+        expand("../Outputs/Kallisto/{sample}", sample=SAMPLES),
+        "../Outputs/Kallisto/sleuth.txt",
+        expand("../Outputs/Mapping/{sample}.bam", sample=SAMPLES),
+        expand("../Outputs/Bowtie2/hcmv.{suffix}.bt2", suffix=["1", "2", "3", "4", "rev.1", "rev.2"]),
+        "...Outputs/Temp/count_reads.tmp",
+        expand("../Outputs/Longest_Contig/{sample}.fasta", sample=SAMPLES),
+        expand("../Outputs/Temp/{sample}.done", sample=SAMPLES),
+
+# Extract the CDS and send it and the count directly to the PipelineReport.txt
+rule extract_cds:
+    input:
+        genome="../Samples/{sample}.fasta"
+        gff="../Samples/{sample}.gff"
+    output:
+        cds="../Outputs/hcmv_cds.fasta"
+        count="../Outputs/cds_count.txt"
+    shell:
+        """python Code/extract_cds.py -i {input genome} -a {input.gff} -o {output.fasta} -c {output.count}"""
+
+rule kallisto_index:
+    input:
+        index="Outputs/hcmv.idx"
+        r1="../Samples/{sample}_1.fastq"
+        r2="../Samples/{sample}_2.fastq"
+    output:
+        folder=directory("Outputs/Kallisto/{sample}")
+    shell:
+        """kallisto index -i {input} -o {output} {input.r1} {input.r2}"""
+
+rule build_index:
+    input:
+        cds="../Outputs/CDS/hcmv_cds.fasta"
+    output:
+        index="../Outputs/Index/hcmv.idx"
+    shell:
+        """mkdir -p ../Outputs/Index
+        kallisto index --make-unique -i {output.index} {input.cds}"""
+
+rule sleuth_analysis:
+    input:
+        folders=expand("../Outputs?Kallisto/{sample}", sample=SAMPLES),
+        script="../Code/sleuth_code.R"
+    output:
+        sfile="../Outputs/Kallisto/sleuth.txt"
+    shell:
+        "Rscript {input.script} > {output.sfile} 2>&1"
+
+rule bowtie2_index:
+    input:
+        fasta="../Samples/genomic.fna"
+    output:
+        expand("../Outputs/Bowtie/hcmv.{suffix}.bt2", suffix=["1", "2", "3", "4", "rev.1", "rev.2"])
+    shell:
+        """
+        mkdir -p ../Outputs/Bowtie
+        bowtie2-build {input.fasta} ../Outputs/Bowtie/hcmv"""
+
+rule mapping:
+    input:
+        index=expand("../Outputs/Bowtie/hcmv.{suffix}.bt2", suffix=["1", "2", "3", "4", "rev.1", "rev.2"]), r1="../Samples/{sample}_1.fastq", "../Samples/{sample}_2.fast2"
+    output:
+        bam="../Outputs/Mapping/{sample}.bam"
+    shell:
+        """mkdir -p ../Outputs/Mapping
+        bowtie2 -x ../Outputs/Bowtie/hcmv -1 {input.r1} -2 {input.r2} | samtools view -bS - > {output.bam}"""
+
+rule count_reads:
+    input:
+        expand("../Outputs/Mapping/{sample}.bam", sample=SAMPLES),
+        expand("../Samples/{sample}_1.fastq", sample=SAMPLES),
+        expand("../Samples/{sample}_2.fastq", sample=SAMPLES)
+    output:
+        "../Outputs/Temp/count_reads.tmp"
+    shell:
+        """bash ../Code/count_reads.py 
+        touch {output}"""
+
+rule spades_assembly: # Run SPAdes assembly for each sample using the paired-end FASTQ files as input, and output the assembled transcripts in a FASTA file for each sample with a kmer size of 127
+    input:
+        r1="../Samples/{sample}_1.fastq",
+        r2="../Samples/{sample}_2.fastq"
+    output:
+        transcripts="../Outputs/SPADES/{sample}/transcripts.fasta"
+    shell:
+        """spades.py --only-assembler -k 127 --rna -1 {input.r1} -2 {input.r2} -o ../OUTPUTS/SPADES/{wildcards.sample}"""
+
+rule longest_contig: # Extract the longest contig from the SPAdes assembly results for each sample and save it in a separate FASTA file
+    input:
+        fasta="../Outputs/SPADES/{sample}/transcripts.fasta"
+    output:
+        out="../Outputs/LONGEST_CONTIG/{sample}.fasta"
+    shell:
+        """mkdir -p ../Outputs/LONGEST_CONTIG
+        python ../Code/longest_contig.py -i {input.fasta} -o {output.out}"""
+
+rule blast_longest_contig: # Run blastn for the longest contig of each sample against the genome database, and save the results in a text file for each sample
+    input:
+        query="../Outputs/Longest_Contig/{sample}.fasta",
+        db_files=expand("../BLAST/genome.{suffix}", suffix=["nhr", "nin", "nsq"])
+    output:
+        report="../Outputs/BLAST/{sample}.blast.txt",
+        done="../Outputs/Temp/blast_{sample}.done"
+    shell:
+        """mkdir -p ../OUTPUTS/BLAST_RESULTS
+        echo "{wildcards.sample}:" > {output.report}
+        echo -e "sacc\tpident\tlength\tqstart\tqend\tsstart\tsend\tbitscore\tevalue\tstitle" >> {output.report}
+        blastn -query {input.query} -db ../BLAST/genome -max_hsps 1 -max_target_seqs 5 -outfmt "6 sacc pident length qstart qend sstart send bitscore evalue stitle" >> {output.report}
+        echo "" >> {output.report}
+        cat {output.report} >> ../PipelineReport.txt
+        touch {output.done}"""
