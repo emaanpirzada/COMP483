@@ -1,4 +1,7 @@
 SAMPLES = ["SRR5660030", "SRR5660033", "SRR5660044", "SRR5660045"]
+wildcard_constraints:
+    sample = "|".join(SAMPLES)
+
 # Rule all
 rule all:
     input:
@@ -40,7 +43,7 @@ rule kallisto_quant:
     output:
         folder=directory("Outputs/Kallisto/samples/{sample}")
     shell:
-        """kallisto quant -i {input.index} -o {output.folder} {input.r1} {input.r2}"""
+        """kallisto quant -i {input.index} -o {output.folder} -b 30 {input.r1} {input.r2}"""
 
 rule sleuth_analysis:
     input:
@@ -49,7 +52,7 @@ rule sleuth_analysis:
     output:
         sfile="Outputs/Kallisto/sleuth.txt"
     shell:
-        "Rscript {input.script} > {output.sfile} 2>&1"
+        "Rscript {input.script}"
 
 rule bowtie_index:
     input:

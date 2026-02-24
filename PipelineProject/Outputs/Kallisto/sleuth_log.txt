@@ -1,0 +1,35 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+[1] "SRR5660030" "SRR5660033" "SRR5660044" "SRR5660045"
+reading in kallisto results
+dropping unused factor levels
+....
+normalizing est_counts
+146 targets passed the filter
+normalizing tpm
+merging in metadata
+summarizing bootstraps
+....Sample 'SRR5660030' had this error message: Error in process_bootstrap(i, samp_name, kal_path, num_transcripts, est_counts_sf[[i]],  : 
+  File h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".File Outputs/Kallisto/samples/SRR5660030/abundance.h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".
+Sample 'SRR5660033' had this error message: Error in process_bootstrap(i, samp_name, kal_path, num_transcripts, est_counts_sf[[i]],  : 
+  File h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".File Outputs/Kallisto/samples/SRR5660033/abundance.h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".
+Sample 'SRR5660044' had this error message: Error in process_bootstrap(i, samp_name, kal_path, num_transcripts, est_counts_sf[[i]],  : 
+  File h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".File Outputs/Kallisto/samples/SRR5660044/abundance.h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".
+Sample 'SRR5660045' had this error message: Error in process_bootstrap(i, samp_name, kal_path, num_transcripts, est_counts_sf[[i]],  : 
+  File h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".File Outputs/Kallisto/samples/SRR5660045/abundance.h5 has no bootstraps.Please generate bootstraps using "kallisto quant -b".
+
+Error in sleuth_prep(metadata_table, ~condition) : 
+  At least one core from mclapply had an error. See the above error message(s) for more details.
+In addition: Warning message:
+In parallel::mclapply(x, y, mc.cores = num_cores) :
+  all scheduled cores encountered errors in user code
+Execution halted

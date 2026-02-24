@@ -3,67 +3,13 @@
   config_dir: ''
   del_after:
   - .bin_reads
-  - tmp/spades_j5a_gxcv
+  - tmp/spades_dyugys25
   - configs
   - .bin_reads
-  - tmp/spades_l6xctd0e
+  - tmp/spades_im__ao17
   - configs
   - .bin_reads
-  - tmp/spades_7zersunj
-  - configs
-  - .bin_reads
-  - tmp/spades_fcn2kln_
-  - configs
-  - .bin_reads
-  - tmp/spades_xox_jj6k
-  - configs
-  - .bin_reads
-  - tmp/spades_qx2g4zzj
-  - configs
-  - .bin_reads
-  - tmp/spades_lf0cwfw_
-  - configs
-  - .bin_reads
-  - tmp/spades_zo95qo3a
-  - configs
-  - .bin_reads
-  - tmp/spades_baq_4nm9
-  - configs
-  - .bin_reads
-  - tmp/spades_my387fib
-  - configs
-  - .bin_reads
-  - tmp/spades_d_qh4qcs
-  - configs
-  - .bin_reads
-  - tmp/spades_gn_trg2i
-  - configs
-  - .bin_reads
-  - tmp/spades_8n8bkhga
-  - configs
-  - .bin_reads
-  - tmp/spades_dx65g2bh
-  - configs
-  - .bin_reads
-  - tmp/spades_x6ehz1ed
-  - configs
-  - .bin_reads
-  - tmp/spades_pvkwwc16
-  - configs
-  - .bin_reads
-  - tmp/spades_18hp88fs
-  - configs
-  - .bin_reads
-  - tmp/spades_ve2xx5bk
-  - configs
-  - .bin_reads
-  - tmp/spades_vloqwho_
-  - configs
-  - .bin_reads
-  - tmp/spades_3vvdkg41
-  - configs
-  - .bin_reads
-  - tmp/spades_ienvzy0h
+  - tmp/spades_wvc2fe4n
   - configs
   output_files: []
   path: 'true'
@@ -107,7 +53,7 @@
   config_dir: ''
   del_after:
   - .bin_reads
-  - tmp/spades_rqnh2wag
+  - tmp/spades_ipny1pl9
   output_files: []
   path: /usr/bin/python3
   short_name: copy_files

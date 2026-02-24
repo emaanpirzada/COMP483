@@ -1,3 +1,0 @@
-SRR5660045:
-sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
-

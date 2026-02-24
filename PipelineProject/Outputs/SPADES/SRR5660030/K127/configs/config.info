@@ -15,7 +15,7 @@ dataset /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/dataset
 log_filename    log.properties
 
 output_base /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030
-tmp_dir /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/tmp/spades_rqnh2wag
+tmp_dir /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/tmp/spades_ipny1pl9
 
 main_iteration true
 ; iterative mode switcher, activates additional contigs usage

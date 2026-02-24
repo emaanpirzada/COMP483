@@ -13,7 +13,7 @@ metadata_table <- data.frame(sample = samples, condition = condition, stringsAsF
 
 # Adds a path column to the metadata table
 metadata_table <- metadata_table %>%
-   mutate(path=file.path("Outputs/Kallisto", sample))
+   mutate(path=file.path("Outputs/Kallisto/samples", sample))
 
 # Creates the sleuth object
 sleuth_object <- sleuth_prep(metadata_table, ~ condition)

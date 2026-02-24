@@ -1,4 +1,0 @@
-SRR5660030:
-sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle
-NC_006273.2	99.743	1554	1	1554	214045	212492	2848	0.0	NC_006273.2 Human herpesvirus 5 strain Merlin, complete genome
-
