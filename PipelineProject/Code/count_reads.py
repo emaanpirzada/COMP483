@@ -8,6 +8,7 @@ Original file is located at
 """
 
 import sys
+import subprocess
 
 fastq_file = sys.argv[1]
 bam_file = sys.argv[2]
@@ -17,6 +18,7 @@ output_file = sys.argv[4]
 with open(fastq_file) as f:
   lines = sum(1 for _ in f)
 reads = lines // 4
-bam_reads = int(subprocess.check_output(f"samtools view -c{bam}", shell=True).strip())
+
+bam_reads = int(subprocess.check_output(f"samtools view -c {bam_file}", shell=True).strip())
 with open(output_file, "w") as out:
-  out.write(f"Sample {sample} had {fastq_reads} read pairs before and {bam_reads} read pairs after Bowtie2 filtering.\n")
+  out.write(f"Sample {sample} had {reads} read pairs before and {bam_reads} read pairs after Bowtie2 filtering.\n")

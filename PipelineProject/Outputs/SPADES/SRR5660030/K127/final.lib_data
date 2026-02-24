@@ -1,0 +1,75 @@
+ï!---
+max read length: 151
+nomerge max read length: 151
+average read length: 150.568
+average coverage: 3.41549
+libraries:
+  - type:            paired-end
+    number:          1
+    orientation:     fr
+    left reads:
+      - '/home/epirzada/COMP483/PipelineProject/Samples/SRR5660030_1_sample.fastq'
+    right reads:
+      - '/home/epirzada/COMP483/PipelineProject/Samples/SRR5660030_2_sample.fastq'
+    data:
+      unmerged read length: 151
+      merged read length: 0
+      insert size mean: 203.107
+      insert size deviation: 56.2063
+      insert size left quantile: 145
+      insert size right quantile: 283
+      insert size median: 190
+      insert size mad: 41
+      insert size distribution: { 128: 8, 129: 3, 130: 3, 131: 2, 132: 1, 
+                                  133: 5, 134: 5, 135: 2, 136: 5, 137: 1, 
+                                  138: 7, 139: 4, 140: 2, 141: 8, 142: 5, 
+                                  143: 4, 144: 4, 145: 7, 146: 13, 147: 13, 
+                                  148: 3, 149: 4, 150: 6, 151: 4, 152: 4, 
+                                  153: 6, 154: 2, 155: 7, 156: 11, 157: 9, 
+                                  158: 2, 159: 1, 160: 2, 161: 9, 162: 7, 
+                                  163: 5, 164: 6, 165: 9, 166: 11, 167: 13, 
+                                  168: 10, 169: 4, 170: 6, 171: 5, 172: 10, 
+                                  173: 6, 174: 10, 175: 9, 176: 9, 177: 6, 
+                                  178: 8, 179: 2, 180: 3, 181: 3, 182: 6, 
+                                  183: 6, 184: 4, 185: 4, 186: 4, 187: 2, 
+                                  188: 7, 189: 7, 190: 3, 191: 9, 192: 3, 
+                                  193: 7, 194: 2, 195: 7, 196: 1, 197: 4, 
+                                  198: 7, 199: 4, 200: 5, 201: 1, 202: 3, 
+                                  203: 7, 204: 6, 205: 3, 206: 7, 207: 7, 
+                                  208: 3, 209: 8, 210: 6, 211: 3, 212: 6, 
+                                  213: 7, 214: 1, 215: 3, 216: 4, 217: 1, 
+                                  218: 5, 219: 6, 220: 6, 221: 5, 222: 5, 
+                                  223: 1, 224: 5, 225: 1, 226: 3, 227: 5, 
+                                  228: 7, 229: 3, 230: 3, 231: 3, 232: 1, 
+                                  233: 3, 234: 4, 235: 3, 236: 2, 237: 2, 
+                                  239: 4, 240: 3, 241: 4, 242: 2, 244: 1, 
+                                  247: 3, 248: 2, 249: 4, 250: 3, 251: 1, 
+                                  252: 4, 253: 2, 254: 2, 255: 2, 256: 2, 
+                                  258: 1, 259: 1, 260: 2, 262: 2, 263: 2, 
+                                  264: 1, 265: 4, 266: 1, 267: 1, 268: 3, 
+                                  269: 2, 270: 1, 271: 3, 272: 2, 273: 1, 
+                                  274: 1, 275: 2, 276: 2, 277: 2, 279: 1, 
+                                  280: 4, 281: 2, 282: 2, 283: 3, 284: 3, 
+                                  285: 3, 286: 3, 287: 1, 289: 1, 291: 2, 
+                                  292: 2, 293: 2, 294: 1, 295: 4, 298: 1, 
+                                  299: 1, 303: 1, 304: 2, 305: 1, 308: 1, 
+                                  310: 1, 314: 1, 315: 2, 316: 3, 318: 1, 
+                                  319: 3, 320: 1, 321: 2, 322: 1, 324: 1, 
+                                  327: 1, 331: 2, 332: 1, 333: 1, 334: 1, 
+                                  339: 1, 342: 1, 343: 2, 347: 1, 349: 2, 
+                                  355: 1, 358: 2, 365: 1, 384: 1, 385: 1, 
+                                  393: 1, 394: 1, 413: 1, 414: 1, 424: 1, 
+                                  425: 2 }
+      pi threshold:    0
+      binary reads info:
+        binary converted: true
+        bin reads info file: '/home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/.bin_reads/INFO_0'
+        paired read prefix: '/home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/.bin_reads/paired_0'
+        merged read prefix: '/home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/.bin_reads/merged_0'
+        single read prefix: '/home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660030/.bin_reads/single_0'
+        chunk num:       1
+      single reads mapped: false
+      library index:   0
+      number of reads: 20000
+      total nucleotides: 3011365
+...

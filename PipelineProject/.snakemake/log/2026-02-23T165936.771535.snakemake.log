@@ -1,0 +1,365 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                     count
+--------------------  -------
+all                         1
+blast_longest_contig        4
+bowtie_index                1
+build_index                 1
+count_reads                 4
+extract_cds                 1
+final_report                1
+kallisto_quant              4
+longest_contig              4
+mapping                     4
+sleuth_analysis             1
+spades_assembly             4
+summarize_counts            1
+total                      31
+
+Select jobs to execute...
+
+[Mon Feb 23 16:59:37 2026]
+rule spades_assembly:
+    input: Samples/SRR5660044_1_sample.fastq, Samples/SRR5660044_2_sample.fastq
+    output: Outputs/SPADES/SRR5660044/transcripts.fasta
+    jobid: 10
+    reason: Missing output files: Outputs/SPADES/SRR5660044/transcripts.fasta
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+spades.py --only-assembler -k 127 --rna -1 Samples/SRR5660044_1_sample.fastq -2 Samples/SRR5660044_2_sample.fastq -o Outputs/SPADES/SRR5660044
+
+[Mon Feb 23 16:59:37 2026]
+rule spades_assembly:
+    input: Samples/SRR5660045_1_sample.fastq, Samples/SRR5660045_2_sample.fastq
+    output: Outputs/SPADES/SRR5660045/transcripts.fasta
+    jobid: 13
+    reason: Missing output files: Outputs/SPADES/SRR5660045/transcripts.fasta
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+spades.py --only-assembler -k 127 --rna -1 Samples/SRR5660045_1_sample.fastq -2 Samples/SRR5660045_2_sample.fastq -o Outputs/SPADES/SRR5660045
+
+[Mon Feb 23 16:59:37 2026]
+rule spades_assembly:
+    input: Samples/SRR5660030_1_sample.fastq, Samples/SRR5660030_2_sample.fastq
+    output: Outputs/SPADES/SRR5660030/transcripts.fasta
+    jobid: 4
+    reason: Missing output files: Outputs/SPADES/SRR5660030/transcripts.fasta
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+spades.py --only-assembler -k 127 --rna -1 Samples/SRR5660030_1_sample.fastq -2 Samples/SRR5660030_2_sample.fastq -o Outputs/SPADES/SRR5660030
+
+[Mon Feb 23 16:59:37 2026]
+rule extract_cds:
+    input: Samples/GCF_000845245.1/genomic.fna, Samples/GCF_000845245.1/genomic.gff
+    output: Outputs/CDS/hcmv_cds.fasta, Outputs/cds_count.txt
+    jobid: 14
+    reason: Missing output files: Outputs/CDS/hcmv_cds.fasta, Outputs/cds_count.txt
+    resources: tmpdir=/tmp
+
+python Code/extract_cds.py -i Samples/GCF_000845245.1/genomic.fna -a Samples/GCF_000845245.1/genomic.gff -o Outputs/CDS/hcmv_cds.fasta -c Outputs/cds_count.txt
+[Mon Feb 23 16:59:38 2026]
+Finished job 14.
+1 of 31 steps (3%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:38 2026]
+rule spades_assembly:
+    input: Samples/SRR5660033_1_sample.fastq, Samples/SRR5660033_2_sample.fastq
+    output: Outputs/SPADES/SRR5660033/transcripts.fasta
+    jobid: 7
+    reason: Missing output files: Outputs/SPADES/SRR5660033/transcripts.fasta
+    wildcards: sample=SRR5660033
+    resources: tmpdir=/tmp
+
+spades.py --only-assembler -k 127 --rna -1 Samples/SRR5660033_1_sample.fastq -2 Samples/SRR5660033_2_sample.fastq -o Outputs/SPADES/SRR5660033
+[Mon Feb 23 16:59:42 2026]
+Finished job 4.
+2 of 31 steps (6%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:42 2026]
+rule longest_contig:
+    input: Outputs/SPADES/SRR5660030/transcripts.fasta
+    output: Outputs/Longest_Contig/SRR5660030.fasta
+    jobid: 3
+    reason: Missing output files: Outputs/Longest_Contig/SRR5660030.fasta; Input files updated by another job: Outputs/SPADES/SRR5660030/transcripts.fasta
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Longest_Contig
+        python Code/longest_contig.py Outputs/SPADES/SRR5660030/transcripts.fasta Outputs/Longest_Contig/SRR5660030.fasta
+[Mon Feb 23 16:59:42 2026]
+Finished job 7.
+3 of 31 steps (10%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:42 2026]
+rule longest_contig:
+    input: Outputs/SPADES/SRR5660033/transcripts.fasta
+    output: Outputs/Longest_Contig/SRR5660033.fasta
+    jobid: 6
+    reason: Missing output files: Outputs/Longest_Contig/SRR5660033.fasta; Input files updated by another job: Outputs/SPADES/SRR5660033/transcripts.fasta
+    wildcards: sample=SRR5660033
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Longest_Contig
+        python Code/longest_contig.py Outputs/SPADES/SRR5660033/transcripts.fasta Outputs/Longest_Contig/SRR5660033.fasta
+[Mon Feb 23 16:59:42 2026]
+Finished job 3.
+4 of 31 steps (13%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:42 2026]
+rule bowtie_index:
+    input: Samples/GCF_000845245.1/genomic.fna
+    output: Outputs/Bowtie/hcmv.1.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2
+    jobid: 22
+    reason: Missing output files: Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.1.bt2
+    resources: tmpdir=/tmp
+
+
+        mkdir -p Outputs/Bowtie
+        bowtie2-build Samples/GCF_000845245.1/genomic.fna Outputs/Bowtie/hcmv
+[Mon Feb 23 16:59:43 2026]
+Finished job 6.
+5 of 31 steps (16%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule blast_longest_contig:
+    input: Outputs/Longest_Contig/SRR5660030.fasta, Outputs/BLAST/stuff/genome.nhr, Outputs/BLAST/stuff/genome.nin, Outputs/BLAST/stuff/genome.nsq
+    output: Outputs/BLAST/SRR5660030.blast.txt, Outputs/Temp/blast_SRR5660030.done
+    jobid: 2
+    reason: Missing output files: Outputs/BLAST/SRR5660030.blast.txt; Input files updated by another job: Outputs/Longest_Contig/SRR5660030.fasta
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/BLAST
+        echo "SRR5660030:" > Outputs/BLAST/SRR5660030.blast.txt
+        echo -e "sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle" >> Outputs/BLAST/SRR5660030.blast.txt
+        blastn -query Outputs/Longest_Contig/SRR5660030.fasta -db Outputs/BLAST/stuff/genome -max_hsps 1 -max_target_seqs 5 -outfmt "6 sacc pident length qstart qend sstart send bitscore evalue stitle" >> Outputs/BLAST/SRR5660030.blast.txt
+        echo "" >> Outputs/BLAST/SRR5660030.blast.txt
+        touch Outputs/Temp/blast_SRR5660030.done
+[Mon Feb 23 16:59:43 2026]
+Finished job 2.
+6 of 31 steps (19%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule build_index:
+    input: Outputs/CDS/hcmv_cds.fasta
+    output: Outputs/CDS/hcmv.idx
+    jobid: 15
+    reason: Missing output files: Outputs/CDS/hcmv.idx; Input files updated by another job: Outputs/CDS/hcmv_cds.fasta
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/CDS
+        kallisto index --make-unique -i Outputs/CDS/hcmv.idx Outputs/CDS/hcmv_cds.fasta
+[Mon Feb 23 16:59:43 2026]
+Finished job 13.
+7 of 31 steps (23%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule longest_contig:
+    input: Outputs/SPADES/SRR5660045/transcripts.fasta
+    output: Outputs/Longest_Contig/SRR5660045.fasta
+    jobid: 12
+    reason: Missing output files: Outputs/Longest_Contig/SRR5660045.fasta; Input files updated by another job: Outputs/SPADES/SRR5660045/transcripts.fasta
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Longest_Contig
+        python Code/longest_contig.py Outputs/SPADES/SRR5660045/transcripts.fasta Outputs/Longest_Contig/SRR5660045.fasta
+[Mon Feb 23 16:59:43 2026]
+Finished job 12.
+8 of 31 steps (26%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule blast_longest_contig:
+    input: Outputs/Longest_Contig/SRR5660045.fasta, Outputs/BLAST/stuff/genome.nhr, Outputs/BLAST/stuff/genome.nin, Outputs/BLAST/stuff/genome.nsq
+    output: Outputs/BLAST/SRR5660045.blast.txt, Outputs/Temp/blast_SRR5660045.done
+    jobid: 11
+    reason: Missing output files: Outputs/BLAST/SRR5660045.blast.txt; Input files updated by another job: Outputs/Longest_Contig/SRR5660045.fasta
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/BLAST
+        echo "SRR5660045:" > Outputs/BLAST/SRR5660045.blast.txt
+        echo -e "sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle" >> Outputs/BLAST/SRR5660045.blast.txt
+        blastn -query Outputs/Longest_Contig/SRR5660045.fasta -db Outputs/BLAST/stuff/genome -max_hsps 1 -max_target_seqs 5 -outfmt "6 sacc pident length qstart qend sstart send bitscore evalue stitle" >> Outputs/BLAST/SRR5660045.blast.txt
+        echo "" >> Outputs/BLAST/SRR5660045.blast.txt
+        touch Outputs/Temp/blast_SRR5660045.done
+[Mon Feb 23 16:59:43 2026]
+Finished job 11.
+9 of 31 steps (29%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule blast_longest_contig:
+    input: Outputs/Longest_Contig/SRR5660033.fasta, Outputs/BLAST/stuff/genome.nhr, Outputs/BLAST/stuff/genome.nin, Outputs/BLAST/stuff/genome.nsq
+    output: Outputs/BLAST/SRR5660033.blast.txt, Outputs/Temp/blast_SRR5660033.done
+    jobid: 5
+    reason: Missing output files: Outputs/BLAST/SRR5660033.blast.txt; Input files updated by another job: Outputs/Longest_Contig/SRR5660033.fasta
+    wildcards: sample=SRR5660033
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/BLAST
+        echo "SRR5660033:" > Outputs/BLAST/SRR5660033.blast.txt
+        echo -e "sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle" >> Outputs/BLAST/SRR5660033.blast.txt
+        blastn -query Outputs/Longest_Contig/SRR5660033.fasta -db Outputs/BLAST/stuff/genome -max_hsps 1 -max_target_seqs 5 -outfmt "6 sacc pident length qstart qend sstart send bitscore evalue stitle" >> Outputs/BLAST/SRR5660033.blast.txt
+        echo "" >> Outputs/BLAST/SRR5660033.blast.txt
+        touch Outputs/Temp/blast_SRR5660033.done
+[Mon Feb 23 16:59:43 2026]
+Finished job 5.
+10 of 31 steps (32%) done
+[Mon Feb 23 16:59:43 2026]
+Finished job 22.
+11 of 31 steps (35%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:43 2026]
+rule mapping:
+    input: Outputs/Bowtie/hcmv.1.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Samples/SRR5660045_1_sample.fastq, Samples/SRR5660045_2_sample.fastq
+    output: Outputs/Mapping/SRR5660045.bam
+    jobid: 25
+    reason: Missing output files: Outputs/Mapping/SRR5660045.bam; Input files updated by another job: Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.1.bt2
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Mapping
+        bowtie2 -x Outputs/Bowtie/hcmv -1 Samples/SRR5660045_1_sample.fastq -2 Samples/SRR5660045_2_sample.fastq | samtools view -bS - > Outputs/Mapping/SRR5660045.bam
+
+[Mon Feb 23 16:59:43 2026]
+rule mapping:
+    input: Outputs/Bowtie/hcmv.1.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Samples/SRR5660044_1_sample.fastq, Samples/SRR5660044_2_sample.fastq
+    output: Outputs/Mapping/SRR5660044.bam
+    jobid: 24
+    reason: Missing output files: Outputs/Mapping/SRR5660044.bam; Input files updated by another job: Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.1.bt2
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Mapping
+        bowtie2 -x Outputs/Bowtie/hcmv -1 Samples/SRR5660044_1_sample.fastq -2 Samples/SRR5660044_2_sample.fastq | samtools view -bS - > Outputs/Mapping/SRR5660044.bam
+[Mon Feb 23 16:59:44 2026]
+Finished job 15.
+12 of 31 steps (39%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:44 2026]
+rule kallisto_quant:
+    input: Outputs/CDS/hcmv.idx, Samples/SRR5660045_1_sample.fastq, Samples/SRR5660045_2_sample.fastq
+    output: Outputs/Kallisto/SRR5660045
+    jobid: 19
+    reason: Missing output files: Outputs/Kallisto/SRR5660045; Input files updated by another job: Outputs/CDS/hcmv.idx
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+kallisto quant -i Outputs/CDS/hcmv.idx -o Outputs/Kallisto/SRR5660045 Samples/SRR5660045_1_sample.fastq Samples/SRR5660045_2_sample.fastq
+[Mon Feb 23 16:59:44 2026]
+Finished job 10.
+13 of 31 steps (42%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:44 2026]
+rule mapping:
+    input: Outputs/Bowtie/hcmv.1.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Samples/SRR5660030_1_sample.fastq, Samples/SRR5660030_2_sample.fastq
+    output: Outputs/Mapping/SRR5660030.bam
+    jobid: 21
+    reason: Missing output files: Outputs/Mapping/SRR5660030.bam; Input files updated by another job: Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.1.bt2
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Mapping
+        bowtie2 -x Outputs/Bowtie/hcmv -1 Samples/SRR5660030_1_sample.fastq -2 Samples/SRR5660030_2_sample.fastq | samtools view -bS - > Outputs/Mapping/SRR5660030.bam
+[Mon Feb 23 16:59:46 2026]
+Finished job 19.
+14 of 31 steps (45%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:46 2026]
+rule longest_contig:
+    input: Outputs/SPADES/SRR5660044/transcripts.fasta
+    output: Outputs/Longest_Contig/SRR5660044.fasta
+    jobid: 9
+    reason: Missing output files: Outputs/Longest_Contig/SRR5660044.fasta; Input files updated by another job: Outputs/SPADES/SRR5660044/transcripts.fasta
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Longest_Contig
+        python Code/longest_contig.py Outputs/SPADES/SRR5660044/transcripts.fasta Outputs/Longest_Contig/SRR5660044.fasta
+[Mon Feb 23 16:59:46 2026]
+Finished job 9.
+15 of 31 steps (48%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:46 2026]
+rule kallisto_quant:
+    input: Outputs/CDS/hcmv.idx, Samples/SRR5660030_1_sample.fastq, Samples/SRR5660030_2_sample.fastq
+    output: Outputs/Kallisto/SRR5660030
+    jobid: 16
+    reason: Missing output files: Outputs/Kallisto/SRR5660030; Input files updated by another job: Outputs/CDS/hcmv.idx
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+kallisto quant -i Outputs/CDS/hcmv.idx -o Outputs/Kallisto/SRR5660030 Samples/SRR5660030_1_sample.fastq Samples/SRR5660030_2_sample.fastq
+[Mon Feb 23 16:59:47 2026]
+Finished job 25.
+16 of 31 steps (52%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:47 2026]
+rule count_reads:
+    input: Outputs/Mapping/SRR5660045.bam, Samples/SRR5660045_1_sample.fastq
+    output: Outputs/Temp/SRR5660045.count.txt
+    jobid: 30
+    reason: Missing output files: Outputs/Temp/SRR5660045.count.txt; Input files updated by another job: Outputs/Mapping/SRR5660045.bam
+    wildcards: sample=SRR5660045
+    resources: tmpdir=/tmp
+
+python Code/count_reads.py Samples/SRR5660045_1_sample.fastq Outputs/Mapping/SRR5660045.bam SRR5660045 Outputs/Temp/SRR5660045.count.txt
+[Mon Feb 23 16:59:47 2026]
+Finished job 16.
+17 of 31 steps (55%) done
+Select jobs to execute...
+
+[Mon Feb 23 16:59:47 2026]
+rule mapping:
+    input: Outputs/Bowtie/hcmv.1.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Samples/SRR5660033_1_sample.fastq, Samples/SRR5660033_2_sample.fastq
+    output: Outputs/Mapping/SRR5660033.bam
+    jobid: 23
+    reason: Missing output files: Outputs/Mapping/SRR5660033.bam; Input files updated by another job: Outputs/Bowtie/hcmv.rev.1.bt2, Outputs/Bowtie/hcmv.rev.2.bt2, Outputs/Bowtie/hcmv.3.bt2, Outputs/Bowtie/hcmv.4.bt2, Outputs/Bowtie/hcmv.2.bt2, Outputs/Bowtie/hcmv.1.bt2
+    wildcards: sample=SRR5660033
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/Mapping
+        bowtie2 -x Outputs/Bowtie/hcmv -1 Samples/SRR5660033_1_sample.fastq -2 Samples/SRR5660033_2_sample.fastq | samtools view -bS - > Outputs/Mapping/SRR5660033.bam
+[Mon Feb 23 16:59:47 2026]
+Error in rule count_reads:
+    jobid: 30
+    input: Outputs/Mapping/SRR5660045.bam, Samples/SRR5660045_1_sample.fastq
+    output: Outputs/Temp/SRR5660045.count.txt
+    shell:
+        python Code/count_reads.py Samples/SRR5660045_1_sample.fastq Outputs/Mapping/SRR5660045.bam SRR5660045 Outputs/Temp/SRR5660045.count.txt
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 23 16:59:48 2026]
+Finished job 24.
+18 of 31 steps (58%) done
+[Mon Feb 23 16:59:50 2026]
+Finished job 21.
+19 of 31 steps (61%) done
+[Mon Feb 23 16:59:52 2026]
+Finished job 23.
+20 of 31 steps (65%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2026-02-23T165936.771535.snakemake.log

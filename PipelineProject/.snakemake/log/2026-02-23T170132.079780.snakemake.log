@@ -1,0 +1,108 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                     count
+--------------------  -------
+all                         1
+blast_longest_contig        1
+count_reads                 4
+final_report                1
+kallisto_quant              2
+sleuth_analysis             1
+summarize_counts            1
+total                      11
+
+Select jobs to execute...
+
+[Mon Feb 23 17:01:33 2026]
+rule kallisto_quant:
+    input: Outputs/CDS/hcmv.idx, Samples/SRR5660033_1_sample.fastq, Samples/SRR5660033_2_sample.fastq
+    output: Outputs/Kallisto/SRR5660033
+    jobid: 17
+    reason: Missing output files: Outputs/Kallisto/SRR5660033
+    wildcards: sample=SRR5660033
+    resources: tmpdir=/tmp
+
+kallisto quant -i Outputs/CDS/hcmv.idx -o Outputs/Kallisto/SRR5660033 Samples/SRR5660033_1_sample.fastq Samples/SRR5660033_2_sample.fastq
+
+[Mon Feb 23 17:01:33 2026]
+rule blast_longest_contig:
+    input: Outputs/Longest_Contig/SRR5660044.fasta, Outputs/BLAST/stuff/genome.nhr, Outputs/BLAST/stuff/genome.nin, Outputs/BLAST/stuff/genome.nsq
+    output: Outputs/BLAST/SRR5660044.blast.txt, Outputs/Temp/blast_SRR5660044.done
+    jobid: 8
+    reason: Missing output files: Outputs/BLAST/SRR5660044.blast.txt
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+mkdir -p Outputs/BLAST
+        echo "SRR5660044:" > Outputs/BLAST/SRR5660044.blast.txt
+        echo -e "sacc	pident	length	qstart	qend	sstart	send	bitscore	evalue	stitle" >> Outputs/BLAST/SRR5660044.blast.txt
+        blastn -query Outputs/Longest_Contig/SRR5660044.fasta -db Outputs/BLAST/stuff/genome -max_hsps 1 -max_target_seqs 5 -outfmt "6 sacc pident length qstart qend sstart send bitscore evalue stitle" >> Outputs/BLAST/SRR5660044.blast.txt
+        echo "" >> Outputs/BLAST/SRR5660044.blast.txt
+        touch Outputs/Temp/blast_SRR5660044.done
+
+[Mon Feb 23 17:01:33 2026]
+rule kallisto_quant:
+    input: Outputs/CDS/hcmv.idx, Samples/SRR5660044_1_sample.fastq, Samples/SRR5660044_2_sample.fastq
+    output: Outputs/Kallisto/SRR5660044
+    jobid: 18
+    reason: Missing output files: Outputs/Kallisto/SRR5660044
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+kallisto quant -i Outputs/CDS/hcmv.idx -o Outputs/Kallisto/SRR5660044 Samples/SRR5660044_1_sample.fastq Samples/SRR5660044_2_sample.fastq
+
+[Mon Feb 23 17:01:33 2026]
+rule count_reads:
+    input: Outputs/Mapping/SRR5660044.bam, Samples/SRR5660044_1_sample.fastq
+    output: Outputs/Temp/SRR5660044.count.txt
+    jobid: 29
+    reason: Missing output files: Outputs/Temp/SRR5660044.count.txt
+    wildcards: sample=SRR5660044
+    resources: tmpdir=/tmp
+
+python Code/count_reads.py Samples/SRR5660044_1_sample.fastq Outputs/Mapping/SRR5660044.bam SRR5660044 Outputs/Temp/SRR5660044.count.txt
+[Mon Feb 23 17:01:33 2026]
+Finished job 8.
+1 of 11 steps (9%) done
+Select jobs to execute...
+
+[Mon Feb 23 17:01:33 2026]
+rule count_reads:
+    input: Outputs/Mapping/SRR5660030.bam, Samples/SRR5660030_1_sample.fastq
+    output: Outputs/Temp/SRR5660030.count.txt
+    jobid: 27
+    reason: Missing output files: Outputs/Temp/SRR5660030.count.txt
+    wildcards: sample=SRR5660030
+    resources: tmpdir=/tmp
+
+python Code/count_reads.py Samples/SRR5660030_1_sample.fastq Outputs/Mapping/SRR5660030.bam SRR5660030 Outputs/Temp/SRR5660030.count.txt
+[Mon Feb 23 17:01:33 2026]
+Error in rule count_reads:
+    jobid: 29
+    input: Outputs/Mapping/SRR5660044.bam, Samples/SRR5660044_1_sample.fastq
+    output: Outputs/Temp/SRR5660044.count.txt
+    shell:
+        python Code/count_reads.py Samples/SRR5660044_1_sample.fastq Outputs/Mapping/SRR5660044.bam SRR5660044 Outputs/Temp/SRR5660044.count.txt
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 23 17:01:33 2026]
+Error in rule count_reads:
+    jobid: 27
+    input: Outputs/Mapping/SRR5660030.bam, Samples/SRR5660030_1_sample.fastq
+    output: Outputs/Temp/SRR5660030.count.txt
+    shell:
+        python Code/count_reads.py Samples/SRR5660030_1_sample.fastq Outputs/Mapping/SRR5660030.bam SRR5660030 Outputs/Temp/SRR5660030.count.txt
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+[Mon Feb 23 17:01:34 2026]
+Finished job 17.
+2 of 11 steps (18%) done
+[Mon Feb 23 17:01:34 2026]
+Finished job 18.
+3 of 11 steps (27%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2026-02-23T170132.079780.snakemake.log

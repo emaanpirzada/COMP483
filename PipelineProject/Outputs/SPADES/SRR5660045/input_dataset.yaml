@@ -1,0 +1,7 @@
+- "left reads":
+  - "/home/epirzada/COMP483/PipelineProject/Samples/SRR5660045_1_sample.fastq"
+  "number": !!int "1"
+  "orientation": "fr"
+  "right reads":
+  - "/home/epirzada/COMP483/PipelineProject/Samples/SRR5660045_2_sample.fastq"
+  "type": "paired-end"

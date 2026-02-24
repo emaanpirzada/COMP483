@@ -30,7 +30,7 @@ gff_file = arguments.gff
 output_file = arguments.output
 count_file = arguments.count
 
-genome_records = SeqIO.to_dict(SEQIO.parse(genome_file, "fasta"))
+genome_records = SeqIO.to_dict(SeqIO.parse(genome_file, "fasta"))
 cds_count = 0
 
 with open(output_file, "w") as out_fasta:
@@ -54,7 +54,7 @@ with open(output_file, "w") as out_fasta:
       # Extracts the protein id from the genome
       protein_id = attributes.split(";")[0].split("=")[1]
       # Extracts the sequence from the genome
-      seq = genome_records[seqid].seq[start:end]
+      seq = genome_records[seq_id].seq[start:end]
       # Finds the reverse complement if on the negative strand
       if strand == "-":
         seq = seq.reverse_complement()

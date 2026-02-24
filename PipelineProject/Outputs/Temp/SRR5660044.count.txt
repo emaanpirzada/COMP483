@@ -1,0 +1,1 @@
+Sample SRR5660044 had 10000 read pairs before and 20000 read pairs after Bowtie2 filtering.

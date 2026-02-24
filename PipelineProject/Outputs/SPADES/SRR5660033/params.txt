@@ -1,0 +1,31 @@
+Command line: /usr/libexec/spades/spades.py	--only-assembler	-k	127	--rna	-1	/home/epirzada/COMP483/PipelineProject/Samples/SRR5660033_1_sample.fastq	-2	/home/epirzada/COMP483/PipelineProject/Samples/SRR5660033_2_sample.fastq	-o	/home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660033	
+
+System information:
+  SPAdes version: 3.15.5
+  Python version: 3.12.3
+  OS: Linux-6.8.0-90-generic-x86_64-with-glibc2.39
+
+Output dir: /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660033
+Debug mode is turned OFF
+
+Dataset parameters:
+  RNA-seq mode
+  Reads:
+    Library number: 1, library type: paired-end
+      orientation: fr
+      left reads: ['/home/epirzada/COMP483/PipelineProject/Samples/SRR5660033_1_sample.fastq']
+      right reads: ['/home/epirzada/COMP483/PipelineProject/Samples/SRR5660033_2_sample.fastq']
+      interlaced reads: not specified
+      single reads: not specified
+      merged reads: not specified
+Assembly parameters:
+  k: [127]
+  Repeat resolution is enabled
+  Mismatch careful mode is turned OFF
+  MismatchCorrector will be SKIPPED
+  Coverage cutoff is turned OFF
+Other parameters:
+  Dir for temp files: /home/epirzada/COMP483/PipelineProject/Outputs/SPADES/SRR5660033/tmp
+  Threads: 16
+  Memory limit (in Gb): 250
+

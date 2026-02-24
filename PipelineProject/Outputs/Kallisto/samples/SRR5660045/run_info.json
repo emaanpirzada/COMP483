@@ -1,0 +1,14 @@
+{
+	"n_targets": 188,
+	"n_bootstraps": 0,
+	"n_processed": 10000,
+	"n_pseudoaligned": 5395,
+	"n_unique": 5177,
+	"p_pseudoaligned": 54.0,
+	"p_unique": 51.8,
+	"kallisto_version": "0.51.1",
+	"index_version": 13,
+	"k-mer length": 31,
+	"start_time": "Mon Feb 23 17:12:27 2026",
+	"call": "kallisto quant -i Outputs/CDS/hcmv.idx -o Outputs/Kallisto/samples/SRR5660045 Samples/SRR5660045_1_sample.fastq Samples/SRR5660045_2_sample.fastq"
+}
