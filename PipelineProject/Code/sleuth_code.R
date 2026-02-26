@@ -33,4 +33,5 @@ sig_transcrips <- results_table %>%
    filter(qval < 0.05) %>%
    select(target_id, test_stat, pval, qval)
 
+# Writes all significant transcripts to a txt file
 write.table(sig_transcrips, file = "Outputs/Kallisto/sleuth.txt", sep = "\t", quote = FALSE, row.names = FALSE)
